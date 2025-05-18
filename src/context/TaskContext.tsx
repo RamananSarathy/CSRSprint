@@ -26,10 +26,7 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const { data, error } = await supabase
         .from('tasks')
-        .select(`
-          *,
-          task_reminders (*)
-        `)
+        .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -107,7 +104,6 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
 
       if (error) throw error;
-      await fetchTasks(); // Refresh tasks to get updated reminder status
       toast.success('Reminder set successfully');
     } catch (error) {
       console.error('Error setting reminder:', error);
