@@ -11,30 +11,35 @@ import VolunteersPage from './pages/VolunteersPage';
 import ImpactPage from './pages/ImpactPage';
 import AIAssistant from './pages/AIAssistant';
 import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 
 import Layout from './components/Layout';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
+import { TaskProvider } from './context/TaskContext';
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <ToastContainer position="top-right" autoClose={3000} />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route element={<PrivateRoute />}>
-            <Route element={<Layout />}>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/events" element={<EventsPage />} />
-              <Route path="/events/:id" element={<EventDetails />} />
-              <Route path="/tasks" element={<TasksPage />} />
-              <Route path="/volunteers" element={<VolunteersPage />} />
-              <Route path="/impact" element={<ImpactPage />} />
-              <Route path="/ai-assistant" element={<AIAssistant />} />
+        <TaskProvider>
+          <ToastContainer position="top-right" autoClose={3000} />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route element={<PrivateRoute />}>
+              <Route element={<Layout />}>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/events" element={<EventsPage />} />
+                <Route path="/events/:id" element={<EventDetails />} />
+                <Route path="/tasks" element={<TasksPage />} />
+                <Route path="/volunteers" element={<VolunteersPage />} />
+                <Route path="/impact" element={<ImpactPage />} />
+                <Route path="/ai-assistant" element={<AIAssistant />} />
+              </Route>
             </Route>
-          </Route>
-        </Routes>
+          </Routes>
+        </TaskProvider>
       </AuthProvider>
     </Router>
   );
